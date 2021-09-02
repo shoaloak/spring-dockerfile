@@ -50,7 +50,10 @@ FROM openjdk:11-jre-slim@sha256:f3cdb8fd164057f4ef3e60674fca986f3cd7b3081d55875c
 ARG UID=707
 ARG GID=707
 
-WORKDIR /app
+# Application folder location
+ARG APP_LOC=/app
+ENV APP_LOC=${APP_LOC}
+WORKDIR ${APP_LOC}
 
 EXPOSE 8080
 
@@ -58,10 +61,10 @@ EXPOSE 8080
 # don't use adduser/addgroup commands unless necessary (Debian/Ubuntu), since they are wrappers
 RUN groupadd --system --gid ${GID} appgroup && \
     useradd --no-log-init --system -g appgroup --uid ${UID} appuser && \
-    chown -R appuser:appgroup /app && \
-    chmod 755 /app
+    chown -R appuser:appgroup ${APP_LOC} && \
+    chmod 755 ${APP_LOC}
 
-COPY --from=build --chown=appuser:appgroup /app/target/*.jar /app/app.jar
+COPY --from=build --chown=appuser:appgroup /app/target/*.jar ./application.jar
 
 USER appuser
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "application.jar"]
