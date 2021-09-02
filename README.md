@@ -49,10 +49,10 @@ We recommend `docker-compose` to automate this.
 
 ## Extras
 
-It might be worthwhile to
-[https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html](not
-immediately start the java process), but instead start an init, such
-as [https://github.com/Yelp/dumb-init](dumb-init), first inside the
+It might be worthwhile to [not immediately start the java
+process](https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html),
+but instead start an init, such as
+[dumb-init](https://github.com/Yelp/dumb-init), first inside the
 container. This supposedly allows for proper handling of signals.
 
 We have done some simple testing and not found this worthwhile for
