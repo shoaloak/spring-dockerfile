@@ -24,6 +24,12 @@ users/groups](https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-d
 base this key on your default range, see `cat /etc/login.defs | grep
 "SYS_"`
 
+Finally, `/dev/urandom` is faster but slightly less secure than
+`/dev/random`. This is necessary since Docker containers lack entropy.
+The dot in the path is a workaround for [a bug in Java 5 and
+later](https://bugs.openjdk.java.net/browse/JDK-6202721), resulting in
+`java.security.egd=file:/dev/./urandom`.
+
 
 ## CLI Building and Running
 
