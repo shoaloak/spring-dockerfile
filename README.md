@@ -4,6 +4,10 @@ This is a documented, multi-stage dockerfile for a (simple) Maven-based
 Java Spring application. It is largely based on the [official Docker
 Java language specific guide](https://docs.docker.com/language/java/).
 
+The dockerfile uses SHA256 hashes instead of generic image aliases to
+[create deterministic
+builds](https://dev.snyk.io/wp-content/uploads/10-best-practices-to-containerize-Java-applications-with-Docker.pdf).
+
 We use the
 [go-offline-maven-plugin](https://github.com/qaware/go-offline-maven-plugin)
 instead of using the `dependency:go` goal, since not all dependencies
@@ -64,3 +68,8 @@ container. This supposedly allows for proper handling of signals.
 We have done some simple testing and not found this worthwhile for
 such a small application, but maybe it does fit your personal use
 case.
+
+Another thing one could argubly do is change the CMD to
+ENTRYPOINT. However, [this choice is largely
+artistic](https://aws.amazon.com/blogs/opensource/demystifying-entrypoint-cmd-docker/)
+and we find CMD better fitting for our use case.
