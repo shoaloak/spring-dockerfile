@@ -2,8 +2,8 @@
 # Multi-stage docker file with sane defaults and documentation for Maven-based Java Spring applications
 
 ##### STAGE: base
-# Specific official OpenJDK image with latest Java version
-FROM openjdk:16-alpine3.13@sha256:f9be8e89a2bbf973dcd6c286f85bb0f68a8f9d5fa7c6241eb59f07add4a24789 as base
+# Specific OpenJDK image with latest Java version
+FROM eclipse-temurin:16.0.2_7-jdk-focal@sha256:464ae9eda46599180d4221672b416407ced45707dbc11ab6501e84d7ea832278 as base
 
 WORKDIR /app
 
@@ -42,8 +42,8 @@ RUN ./mvnw package -Dmaven.test.skip
 
 
 ##### STAGE: production
-# Specific official OpenJDK JRE image with latest LTS Java version
-FROM openjdk:11-jre-slim@sha256:f3cdb8fd164057f4ef3e60674fca986f3cd7b3081d55875c7ce75b7a214fca6d as production
+# Specific OpenJDK JRE image with latest LTS Java version
+FROM eclipse-temurin:11.0.12_7-jre-focal@sha256:87d6207d6e6c6d24acab2608e4f0152d240fe09532b11714000867b6b0d01b22 as production
 
 # Please specify custom UID/GID that does not overlap with your host: https://tinyurl.com/tewa72ca
 # e.g. docker build --build-arg UID=707 --build-arg GID=707 .
